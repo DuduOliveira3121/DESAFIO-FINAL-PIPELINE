@@ -23,3 +23,6 @@ jobs:
       - name: Deploy
         uses: render-actions/deploy@v1
         with:
+          service-id: srv-d4fseta4d50c73f13skg
+          api-key: ${{ secrets.API_KEY_DEVOPS }}
+          clear-cache: false

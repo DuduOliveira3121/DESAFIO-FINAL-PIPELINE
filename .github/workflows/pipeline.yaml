@@ -9,10 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       permissions:
-      contents: read
-      packages: write
-
-    steps:
+        contents: read
+        packages: write
+        
       - name: Checkout do código
         uses: actions/checkout@v4
 

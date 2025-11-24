@@ -7,18 +7,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Build API
-        run: docker-compose up --build -d
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
 
-      - name: Run tests
-        run: docker-compose run api python -m unittest discover
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
       
-      - name: Down docker-compose
-        run: docker-compose down
+      - name: Run tests
+        run: |
+          python -m unittest discover
 
       - name: Deploy
         uses: render-actions/deploy@v1

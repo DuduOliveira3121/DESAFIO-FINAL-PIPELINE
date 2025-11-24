@@ -42,7 +42,7 @@ jobs:
     steps:
       - name: Trigger Render Deployment
         run: |
-          curl -X POST "$MY_WEBHOOK"
+          curl -X POST "$RENDER_DEPLOY_HOOK"
 
     env:
-      RENDER_DEPLOY_HOOK: ${{ secrets.MY_WEBHOOK }}
+      RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}

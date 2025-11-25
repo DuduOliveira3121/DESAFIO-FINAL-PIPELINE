@@ -28,7 +28,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       
       - name: Start containers for testing
         run: docker compose up -d --build
@@ -39,7 +38,7 @@ jobs:
             pip install -r requirements.txt
 
       - name: Run Tests
-        run: docker compose run api python -m pytest -q
+        run: docker compose exec api pytest -q
 
       - name: Down containers
         run: docker compose down

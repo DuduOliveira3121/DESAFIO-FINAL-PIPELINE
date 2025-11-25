@@ -1,4 +1,4 @@
-name: Jobs de Build, Test e Deploy
+name: CI/CD - Pipeline
 
 on:
   push:
@@ -8,16 +8,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+- name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build da imagem Docker
-        run: docker build -t projeto-devops:latest .
+      - name: Build with docker-compose
+        run: docker-compose build
 
-      - name: Imagem
+      - name: Upload build artifact (optional)
         uses: actions/upload-artifact@v4
         with:
-          name: image
+          name: build
           path: .
 
   test:
@@ -27,14 +27,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Instalar dependências
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest
+      - name: Build and Start API
+        run: docker-compose up -d --build
 
-      - name: Rodar testes
-        run: pytest
+      - name: Run Tests
+        run: docker-compose run api python -m pytest -q
+
+      - name: Down containers
+        run: docker-compose down
 
   deploy:
     runs-on: ubuntu-latest

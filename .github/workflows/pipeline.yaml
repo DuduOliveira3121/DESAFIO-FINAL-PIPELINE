@@ -29,6 +29,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      
+      - name: Start containers for testing
+        run: docker compose up -d --build
+
       - name: Install dependencies
         run: |
             python -m pip install --upgrade pip
